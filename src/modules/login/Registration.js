@@ -32,7 +32,7 @@ class Registration extends React.Component {
     if (this.props.loginData.isLoginFailed) {
       return (
         <div>
-          <p>Enter the correct username and password!</p>
+          <p className="Error">Enter the correct username and password!</p>
         </div>
       );
     }
@@ -64,7 +64,7 @@ class Registration extends React.Component {
             </tr>
           </tbody>
         </table>
-        <input type="button" value="Отправить" onClick={this.handleSignIn} />
+        <input type="button" className="button" value="Отправить" onClick={this.handleSignIn} />
         {this.renderError()}
       </div>
     );

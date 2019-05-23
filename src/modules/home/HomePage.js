@@ -10,6 +10,9 @@ import styles from './style.scss';
 class HomePage extends React.Component {
   componentDidMount() {
     if (!this.props.loginData.isLoggedIn) {
+      let localStorageLogin = localStorage.getItem('login');
+      console.log('------', localStorageLogin);
+      if (localStorageLogin) return;
       return this.props.history.push('/login');
     }
   }
