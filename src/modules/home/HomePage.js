@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 
 import * as tableActions from '../../redux/actions/tableActions';
 
-import styles from './style.scss';
-
 class HomePage extends React.Component {
   componentDidMount() {
     if (!this.props.loginData.isLoggedIn) {
@@ -26,6 +24,8 @@ class HomePage extends React.Component {
           </td>
           <td>
             <input
+              className="form-control"
+              style={{ width: '180px' }}
               disabled={row.isDisabled}
               value={row.name}
               onChange={e => this.props.onChangeRowInReducer(e, row.id, 'name')}
@@ -33,6 +33,8 @@ class HomePage extends React.Component {
           </td>
           <td>
             <input
+              className="form-control"
+              style={{ width: '180px' }}
               disabled={row.isDisabled}
               value={row.surname}
               onChange={e => this.props.onChangeRowInReducer(e, row.id, 'surname')}
@@ -40,6 +42,8 @@ class HomePage extends React.Component {
           </td>
           <td>
             <input
+              className="form-control"
+              style={{ width: '100px' }}
               disabled={row.isDisabled}
               value={row.age}
               onChange={e => this.props.onChangeRowInReducer(e, row.id, 'age')}
@@ -54,9 +58,24 @@ class HomePage extends React.Component {
   renderButtons = id => {
     return (
       <div>
-        <input type="button" value="delete" onClick={this.props.onDeleteRow.bind(this, id)} />
-        <input type="button" value="save" onClick={this.props.onToggleRow.bind(this, id, true)} />
-        <input type="button" value="edit" onClick={this.props.onToggleRow.bind(this, id, false)} />
+        <button
+          className="btn btn-danger btn-xs button"
+          onClick={this.props.onDeleteRow.bind(this, id)}
+        >
+          delete
+        </button>
+        <button
+          className="btn btn-info btn-xs button"
+          onClick={this.props.onToggleRow.bind(this, id, true)}
+        >
+          save
+        </button>
+        <button
+          className="btn btn-warning btn-xs button"
+          onClick={this.props.onToggleRow.bind(this, id, false)}
+        >
+          edit
+        </button>
       </div>
     );
   };
@@ -66,19 +85,32 @@ class HomePage extends React.Component {
     let { tableData } = this.props;
     return (
       <div className="App">
-        <input type="button" value="add row" onClick={this.props.onAddRow} />
-        <input type="button" value="delete all rows" onClick={this.props.onDeleteALLRows} />
-        <input type="button" value="save" onClick={this.props.onToggleAll.bind(this, true)} />
-        <input type="button" value="update" onClick={this.props.onToggleAll.bind(this, false)} />
+        <input
+          type="button"
+          value="add row"
+          className="btn btn-success"
+          onClick={this.props.onAddRow}
+        />
+        <input
+          type="button"
+          value="delete all rows"
+          className="btn btn-danger"
+          onClick={this.props.onDeleteALLRows}
+        />
+        <input
+          type="button"
+          value="save"
+          className="btn btn-info"
+          onClick={this.props.onToggleAll.bind(this, true)}
+        />
+        <input
+          type="button"
+          value="update"
+          className="btn btn-warning"
+          onClick={this.props.onToggleAll.bind(this, false)}
+        />
 
-        <table
-          id="Table"
-          className="App-Table"
-          border="1"
-          cellSpacing="0"
-          cellPadding="15"
-          width="600"
-        >
+        <table id="Table" className="App-Table table table-bordered">
           <thead>
             <tr>
               <td>ID</td>

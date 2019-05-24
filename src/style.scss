@@ -1,18 +1,35 @@
 .container {
-  // margin: 0 auto;
-  text-align: center;
-
-  // display: flex;
-  // flex-direction: column;
-  // justify-items: center;
-
-  margin: 120px 500px 0px 500px;
-}
-
-table {
-  margin-bottom: 30px;
+  margin-top: 80px;
 }
 
 .Error {
-  color: red;
+  margin-top: 50px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+// \\\\\\\\\\\\\\\\\\\\\\\\\ Homepage \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+.App {
+  margin-top: 30px;
+  text-align: center;
+}
+
+input {
+  margin-right: 40px;
+}
+
+#Table {
+  margin-top: 30px;
+}
+
+#Table tr td {
+  font-weight: bold;
+}
+
+#Table td input {
+  margin: 0 auto;
+}
+
+.button {
+  margin-right: 20px;
 }

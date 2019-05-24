@@ -32,7 +32,7 @@ class Registration extends React.Component {
     if (this.props.loginData.isLoginFailed) {
       return (
         <div>
-          <p className="Error">Enter the correct username and password!</p>
+          <p className=" Error text-danger">Enter the correct username and password!</p>
         </div>
       );
     }
@@ -41,14 +41,14 @@ class Registration extends React.Component {
   render() {
     return (
       <div id="main" className="container">
-        <table className="Registration-table" border="1" cellSpacing="0" cellPadding="15">
+        <table className="table table-bordered">
           <thead />
           <tbody>
             <tr>
               <td>
                 Login:
                 <input
-                  className="input"
+                  className="form-control"
                   value={this.state.login}
                   onChange={this.handleChange.bind(this, 'login')}
                 />
@@ -56,7 +56,7 @@ class Registration extends React.Component {
               <td>
                 Password:
                 <input
-                  className="input"
+                  className="form-control"
                   value={this.state.password}
                   onChange={this.handleChange.bind(this, 'password')}
                 />
@@ -64,7 +64,12 @@ class Registration extends React.Component {
             </tr>
           </tbody>
         </table>
-        <input type="button" className="button" value="Отправить" onClick={this.handleSignIn} />
+        <input
+          type="button"
+          className="btn btn-primary btn-lg"
+          value="Отправить"
+          onClick={this.handleSignIn}
+        />
         {this.renderError()}
       </div>
     );
