@@ -14,6 +14,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoginFailed: true,
+        isLoggedIn: false,
       };
     default:
       return state;

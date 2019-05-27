@@ -6,11 +6,8 @@ import { bindActionCreators } from 'redux';
 import * as tableActions from '../../redux/actions/tableActions';
 
 class HomePage extends React.Component {
-  componentDidMount() {
+  componentDidUpdate() {
     if (!this.props.loginData.isLoggedIn) {
-      let localStorageLogin = localStorage.getItem('login');
-      console.log('------', localStorageLogin);
-      if (localStorageLogin) return;
       return this.props.history.push('/login');
     }
   }

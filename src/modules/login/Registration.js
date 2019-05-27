@@ -25,7 +25,29 @@ class Registration extends React.Component {
   };
 
   handleSignIn = () => {
-    this.props.onSignIn(this.state.login, this.state.password);
+    const { dispatch } = this.props;
+    let obj = {
+      user: this.state.login,
+      password: this.state.password,
+    };
+    let requestBody = JSON.stringify(obj);
+    fetch('http://localhost:3001/register', {
+      method: 'POST',
+      body: requestBody,
+    })
+      .then(res => res.json())
+      .then(response => {
+        if (response.login) {
+          dispatch({ type: 'LOGIN' });
+          window.location.href = '/home';
+        } else {
+          console.log('Error!');
+          dispatch({ type: 'LOGIN_ERROR' });
+        }
+      })
+      .catch(resp => {
+        console.error(resp);
+      });
   };
 
   renderError = () => {
@@ -49,6 +71,7 @@ class Registration extends React.Component {
                 Login:
                 <input
                   className="form-control"
+                  name="userName"
                   value={this.state.login}
                   onChange={this.handleChange.bind(this, 'login')}
                 />
@@ -56,7 +79,8 @@ class Registration extends React.Component {
               <td>
                 Password:
                 <input
-                  className="form-control"
+                  className="form-control "
+                  name="userPassword"
                   value={this.state.password}
                   onChange={this.handleChange.bind(this, 'password')}
                 />
@@ -80,8 +104,8 @@ export default connect(
   state => ({
     loginData: state.loginReducer,
   }),
-  dispatch => ({
-    onChangeRowInReducer: bindActionCreators(tableActions.changeRow, dispatch),
-    onSignIn: bindActionCreators(loginActions.loginUser, dispatch),
-  }),
+  // dispatch => ({
+  //   onChangeRowInReducer: bindActionCreators(tableActions.changeRow, dispatch),
+  //   onSignIn: bindActionCreators(loginActions.loginUser, dispatch),
+  // }),
 )(Registration);
