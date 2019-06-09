@@ -1,6 +1,18 @@
-export const addRow = () => ({
-  type: 'ADD_TRACK',
-});
+export const addRow = () => async dispatch => {
+  return fetch('http://localhost:3001/addrow', {
+    method: 'POST',
+  })
+    .then(res => res.json())
+    .then(res => {
+      dispatch({
+        type: 'ADD_TRACK',
+        payload: res,
+      });
+    })
+    .catch(res => {
+      console.error(res);
+    });
+};
 
 export const deleteAllRows = () => ({
   type: 'DELETE_ALL_ROWS',
@@ -32,3 +44,19 @@ export const changeRow = (event, fieldId, fieldName) => ({
     fieldName,
   },
 });
+
+export const getData = () => async dispatch => {
+  return fetch('http://localhost:3001/rows', {
+    method: 'GET',
+  })
+    .then(res => res.json())
+    .then(res => {
+      dispatch({
+        type: 'GET_ROWS_SUCCESS',
+        payload: res,
+      });
+    })
+    .catch(res => {
+      console.error(res);
+    });
+};

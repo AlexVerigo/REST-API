@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 
-import * as loginActions from '../../redux/actions/loginActions';
-import * as tableActions from '../../redux/actions/tableActions';
+// import * as loginActions from '../../redux/actions/loginActions';
+// import * as tableActions from '../../redux/actions/tableActions';
 
 class Registration extends React.Component {
   state = {
@@ -12,11 +12,11 @@ class Registration extends React.Component {
     password: '',
   };
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.loginData.isLoggedIn && this.props.loginData.isLoggedIn) {
-      this.props.history.push('/home');
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (!prevProps.loginData.isLoggedIn && this.props.loginData.isLoggedIn) {
+  //     this.props.history.push('/home');
+  //   }
+  // }
 
   handleChange = (field, event) => {
     this.setState({
@@ -38,11 +38,15 @@ class Registration extends React.Component {
       .then(res => res.json())
       .then(response => {
         if (response.login) {
-          dispatch({ type: 'LOGIN' });
+          dispatch({
+            type: 'LOGIN',
+          });
           window.location.href = '/home';
         } else {
           console.log('Error!');
-          dispatch({ type: 'LOGIN_ERROR' });
+          dispatch({
+            type: 'LOGIN_ERROR',
+          });
         }
       })
       .catch(resp => {
@@ -54,7 +58,7 @@ class Registration extends React.Component {
     if (this.props.loginData.isLoginFailed) {
       return (
         <div>
-          <p className=" Error text-danger">Enter the correct username and password!</p>
+          <p className=" Error text-danger"> Enter the correct username and password! </p>{' '}
         </div>
       );
     }
@@ -74,8 +78,8 @@ class Registration extends React.Component {
                   name="userName"
                   value={this.state.login}
                   onChange={this.handleChange.bind(this, 'login')}
-                />
-              </td>
+                />{' '}
+              </td>{' '}
               <td>
                 Password:
                 <input
@@ -83,18 +87,18 @@ class Registration extends React.Component {
                   name="userPassword"
                   value={this.state.password}
                   onChange={this.handleChange.bind(this, 'password')}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                />{' '}
+              </td>{' '}
+            </tr>{' '}
+          </tbody>{' '}
+        </table>{' '}
         <input
           type="button"
           className="btn btn-primary btn-lg"
           value="Отправить"
           onClick={this.handleSignIn}
-        />
-        {this.renderError()}
+        />{' '}
+        {this.renderError()}{' '}
       </div>
     );
   }

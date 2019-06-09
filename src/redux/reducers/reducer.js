@@ -2,16 +2,15 @@ let initialState = {
   rows: [],
 };
 
-const getNewRow = () => {
-  return {
-    id: Math.random() * (1000 - 10) + 10,
-    isDisabled: false,
-    name: '',
-    surname: '',
-    age: '',
-    action: '',
-  };
-};
+// const getNewRow = () => {
+//   return {
+//     id: Math.random() * (1000 - 10) + 10,
+//     isDisabled: false,
+//     name: '',
+//     surname: '',
+//     age: '',
+//   };
+// };
 
 const handleChangeRow = (rows, payload) => {
   const updatedRows = rows.map(row => {
@@ -53,6 +52,11 @@ const handleToggleRow = (rows, payload) => {
 export default (state = initialState, action) => {
   console.log('TRIGGERING STORE DISPATCH', action);
   switch (action.type) {
+    case 'GET_ROWS_SUCCESS':
+      return {
+        ...state,
+        rows: action.payload,
+      };
     case 'CHANGE_ROW':
       return {
         ...state,
@@ -61,7 +65,7 @@ export default (state = initialState, action) => {
     case 'ADD_TRACK':
       return {
         ...state,
-        rows: state.rows.concat(getNewRow()),
+        rows: action.payload,
       };
     case 'DELETE_ALL_ROWS':
       return {

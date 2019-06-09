@@ -4,13 +4,21 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as tableActions from '../../redux/actions/tableActions';
+// import { request } from 'https';
 
 class HomePage extends React.Component {
-  componentDidUpdate() {
-    if (!this.props.loginData.isLoggedIn) {
-      return this.props.history.push('/login');
-    }
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     rows: [],
+  //   };
+  // }
+
+  // componentDidUpdate() {
+  //   if (!this.props.loginData.isLoggedIn) {
+  //     return this.props.history.push('/login');
+  //   }
+  // }
 
   renderRows = () => {
     return this.props.tableData.rows.map(row => {
@@ -77,6 +85,11 @@ class HomePage extends React.Component {
     );
   };
 
+  componentDidMount() {
+    console.log(this.props);
+    this.props.getData()();
+  }
+
   render() {
     console.log(this);
     let { tableData } = this.props;
@@ -86,7 +99,9 @@ class HomePage extends React.Component {
           type="button"
           value="add row"
           className="btn btn-success"
-          onClick={this.props.onAddRow}
+          onClick={() => {
+            this.props.onAddRow()();
+          }}
         />
         <input
           type="button"
@@ -131,10 +146,11 @@ export default connect(
   }),
   dispatch => ({
     onChangeRowInReducer: bindActionCreators(tableActions.changeRow, dispatch),
-    onAddRow: bindActionCreators(tableActions.addRow, dispatch),
+    onAddRow: tableActions.addRow,
     onDeleteALLRows: bindActionCreators(tableActions.deleteAllRows, dispatch),
     onDeleteRow: bindActionCreators(tableActions.deleteRow, dispatch),
     onToggleAll: bindActionCreators(tableActions.toggleAll, dispatch),
     onToggleRow: bindActionCreators(tableActions.toggleRow, dispatch),
+    getData: tableActions.getData,
   }),
 )(HomePage);
