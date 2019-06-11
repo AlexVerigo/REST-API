@@ -32,10 +32,10 @@ const handleToggleAll = (rows, isDisabled) => {
   return toggleRows;
 };
 
-const handleDeleteRow = (rows, id) => {
-  const updatedRows = rows.filter(row => id !== row.id);
-  return updatedRows;
-};
+// const handleDeleteRow = (rows, id) => {
+//   const updatedRows = rows.filter(row => id !== row.id);
+//   return updatedRows;
+// };
 
 const handleToggleRow = (rows, payload) => {
   const toggleRows = rows.map(row => {
@@ -50,7 +50,7 @@ const handleToggleRow = (rows, payload) => {
 };
 
 export default (state = initialState, action) => {
-  console.log('TRIGGERING STORE DISPATCH', action);
+  // console.log('TRIGGERING STORE DISPATCH', action);
   switch (action.type) {
     case 'GET_ROWS_SUCCESS':
       return {
@@ -70,17 +70,17 @@ export default (state = initialState, action) => {
     case 'DELETE_ALL_ROWS':
       return {
         ...state,
-        rows: [],
+        rows: action.payload,
       };
     case 'TOGGLE_ALL_ROWS':
       return {
         ...state,
-        rows: handleToggleAll(state.rows, action.payload),
+        rows: action.payload,
       };
     case 'DELETE_ROW':
       return {
         ...state,
-        rows: handleDeleteRow(state.rows, action.payload),
+        rows: action.payload,
       };
     case 'TOGGLE_ROW':
       return {
