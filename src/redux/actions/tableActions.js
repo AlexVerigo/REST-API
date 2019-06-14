@@ -68,6 +68,7 @@ export const deleteRow = id => async dispatch => {
 export const toggleAll = () => async dispatch => {
   // console.clear();
   const data = store.getState().tableReducer.rows;
+  console.log('data: ', data);
   return fetch('http://localhost:3001/saverow', {
     method: 'PUT',
     body: JSON.stringify(data),
