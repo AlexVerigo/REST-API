@@ -2,16 +2,6 @@ let initialState = {
   rows: [],
 };
 
-// const getNewRow = () => {
-//   return {
-//     id: Math.random() * (1000 - 10) + 10,
-//     isDisabled: false,
-//     name: '',
-//     surname: '',
-//     age: '',
-//   };
-// };
-
 const handleChangeRow = (rows, payload) => {
   const updatedRows = rows.map(row => {
     if (row.id === payload.fieldId) {
@@ -24,13 +14,13 @@ const handleChangeRow = (rows, payload) => {
   return updatedRows;
 };
 
-const handleToggleAll = (rows, isDisabled) => {
-  const toggleRows = rows.map(row => {
-    return { ...row, isDisabled };
-  });
+// const handleToggleAll = (rows, isDisabled) => {
+//   const toggleRows = rows.map(row => {
+//     return { ...row, isDisabled };
+//   });
 
-  return toggleRows;
-};
+//   return toggleRows;
+// };
 
 // const handleDeleteRow = (rows, id) => {
 //   const updatedRows = rows.filter(row => id !== row.id);
@@ -82,10 +72,15 @@ export default (state = initialState, action) => {
         ...state,
         rows: action.payload,
       };
-    case 'TOGGLE_ROW':
+    // case 'TOGGLE_ROW':
+    //   return {
+    //     ...state,
+    //     rows: handleToggleRow(state.rows, action.payload),
+    //   };
+    case 'GET_ROWS_SEARCH':
       return {
         ...state,
-        rows: handleToggleRow(state.rows, action.payload),
+        rows: action.payload,
       };
     default:
       return state;

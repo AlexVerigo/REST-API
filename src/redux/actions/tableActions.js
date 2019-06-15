@@ -68,7 +68,7 @@ export const deleteRow = id => async dispatch => {
 export const toggleAll = () => async dispatch => {
   // console.clear();
   const data = store.getState().tableReducer.rows;
-  console.log('data: ', data);
+  // console.log('data: ', data);
   return fetch('http://localhost:3001/saverow', {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -101,3 +101,22 @@ export const changeRow = (event, fieldId, fieldName) => ({
     fieldName,
   },
 });
+
+export const searchData = searchString => async dispatch => {
+  console.log('ACTION');
+  const data = { searchString };
+  return fetch(`http://localhost:3001/getdata/${searchString}`, {
+    method: 'GET',
+  })
+    .then(res => res.json())
+    .then(res => {
+      console.log('data', res);
+      dispatch({
+        type: 'GET_ROWS_SUCCESS',
+        payload: res,
+      });
+    })
+    .catch(res => {
+      console.error(res);
+    });
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { debounce } from 'lodash-es';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -52,6 +53,17 @@ class HomePage extends React.Component {
     });
   };
 
+
+  saveNotes = debounce(personalNotes => {
+    this.props.onSearch(personalNotes);
+  }, 700);
+
+  onSeacrhdata = event => {
+    const searchString = event.target.value;
+    console.log(this.props)
+    this.saveNotes(searchString)
+  };
+
   renderButtons = id => {
     return (
       <div>
@@ -78,8 +90,8 @@ class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    // console.log(this.props);
-    // this.props.getData();
+    console.log(this.props);
+    this.props.getData();
   }
 
   render() {
@@ -106,10 +118,10 @@ class HomePage extends React.Component {
           onClick={this.props.onToggleAll.bind(this, true)}
         />
         <input
-          type="button"
-          value="update"
-          className="btn btn-warning"
-          onClick={this.props.onToggleAll.bind(this, false)}
+          type="text"
+          // value="update"
+          // className="btn btn-warning"
+          onChange={(e) => this.onSeacrhdata(e)}
         />
 
         <table id="Table" className="App-Table table table-bordered">
@@ -142,6 +154,6 @@ export default connect(
     onToggleAll: bindActionCreators(tableActions.toggleAll, dispatch),
     onToggleRow: bindActionCreators(tableActions.toggleRow, dispatch),
     getData: bindActionCreators(tableActions.getData, dispatch),
-    // dispatch(tableActions.getData() )
+    onSearch: bindActionCreators(tableActions.searchData, dispatch),
   }),
 )(HomePage);
