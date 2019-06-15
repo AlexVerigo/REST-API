@@ -1,18 +1,11 @@
 import React from 'react';
-
+import { debounce } from 'lodash-es';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import * as tableActions from '../../redux/actions/tableActions';
-
 class HomePage extends React.Component {
-  // componentDidUpdate() {
-  //   if (!this.props.loginData.isLoggedIn) {
-  //     return this.props.history.push('/login');
-  //   }
-  // }
 
-  renderRows = () => {
+  renderRows =  () => {
     return this.props.tableData.rows.map(row => {
       return (
         <tr key={row.id}>
@@ -24,8 +17,8 @@ class HomePage extends React.Component {
               className="form-control"
               style={{ width: '180px' }}
               disabled={row.isDisabled}
-              value={row.name}
-              onChange={e => this.props.onChangeRowInReducer(e, row.id, 'name')}
+              value={row.Name}
+              onChange={e => this.props.onChangeRowInReducer(e, row.id, 'Name')}
             />
           </td>
           <td>
@@ -33,8 +26,8 @@ class HomePage extends React.Component {
               className="form-control"
               style={{ width: '180px' }}
               disabled={row.isDisabled}
-              value={row.surname}
-              onChange={e => this.props.onChangeRowInReducer(e, row.id, 'surname')}
+              value={row.Surname}
+              onChange={e => this.props.onChangeRowInReducer(e, row.id, 'Surname')}
             />
           </td>
           <td>
@@ -42,8 +35,8 @@ class HomePage extends React.Component {
               className="form-control"
               style={{ width: '100px' }}
               disabled={row.isDisabled}
-              value={row.age}
-              onChange={e => this.props.onChangeRowInReducer(e, row.id, 'age')}
+              value={row.Age}
+              onChange={e => this.props.onChangeRowInReducer(e, row.id, 'Age')}
             />
           </td>
           <td>{this.renderButtons(row.id)}</td>
@@ -51,6 +44,16 @@ class HomePage extends React.Component {
       );
     });
   };
+
+  onSeacrhdata = event => {
+    const searchString = event.target.value;
+    console.log(this.props);
+    this.saveNotes(searchString);
+  };
+
+  saveNotes = debounce(personalNotes => {
+    this.props.onSearch(personalNotes);
+  }, 700);
 
   renderButtons = id => {
     return (
@@ -61,30 +64,15 @@ class HomePage extends React.Component {
         >
           delete
         </button>
-        <button
-          className="btn btn-info btn-xs button"
-          onClick={this.props.onToggleRow.bind(this, id, true)}
-        >
-          save
-        </button>
-        <button
-          className="btn btn-warning btn-xs button"
-          onClick={this.props.onToggleRow.bind(this, id, false)}
-        >
-          edit
-        </button>
       </div>
     );
   };
 
   componentDidMount() {
-    // console.log(this.props);
-    // this.props.getData();
+    this.props.getData();
   }
 
   render() {
-    // console.log('this', this);
-    // let { tableData } = this.props;
     return (
       <div className="App">
         <input
@@ -106,10 +94,8 @@ class HomePage extends React.Component {
           onClick={this.props.onToggleAll.bind(this, true)}
         />
         <input
-          type="button"
-          value="update"
-          className="btn btn-warning"
-          onClick={this.props.onToggleAll.bind(this, false)}
+          type="text"
+          onChange={e => this.onSeacrhdata(e)}
         />
 
         <table id="Table" className="App-Table table table-bordered">
@@ -140,8 +126,7 @@ export default connect(
     onDeleteALLRows: bindActionCreators(tableActions.deleteAllRows, dispatch),
     onDeleteRow: bindActionCreators(tableActions.deleteRow, dispatch),
     onToggleAll: bindActionCreators(tableActions.toggleAll, dispatch),
-    onToggleRow: bindActionCreators(tableActions.toggleRow, dispatch),
     getData: bindActionCreators(tableActions.getData, dispatch),
-    // dispatch(tableActions.getData() )
+    onSearch: bindActionCreators(tableActions.searchData, dispatch),
   }),
 )(HomePage);

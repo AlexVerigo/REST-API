@@ -1,22 +1,11 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-
-// import * as loginActions from '../../redux/actions/loginActions';
-// import * as tableActions from '../../redux/actions/tableActions';
-
 class Registration extends React.Component {
   state = {
     login: '',
     password: '',
   };
-
-  // componentDidUpdate(prevProps) {
-  //   if (!prevProps.loginData.isLoggedIn && this.props.loginData.isLoggedIn) {
-  //     this.props.history.push('/home');
-  //   }
-  // }
 
   handleChange = (field, event) => {
     this.setState({
@@ -31,7 +20,7 @@ class Registration extends React.Component {
       password: this.state.password,
     };
     let requestBody = JSON.stringify(obj);
-    fetch('http://localhost:3001/register', {
+    fetch('http://localhost:3001/table/register', {
       method: 'POST',
       body: requestBody,
     })
@@ -78,8 +67,8 @@ class Registration extends React.Component {
                   name="userName"
                   value={this.state.login}
                   onChange={this.handleChange.bind(this, 'login')}
-                />{' '}
-              </td>{' '}
+                />
+              </td>
               <td>
                 Password:
                 <input
@@ -87,18 +76,18 @@ class Registration extends React.Component {
                   name="userPassword"
                   value={this.state.password}
                   onChange={this.handleChange.bind(this, 'password')}
-                />{' '}
-              </td>{' '}
-            </tr>{' '}
-          </tbody>{' '}
-        </table>{' '}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <input
           type="button"
           className="btn btn-primary btn-lg"
           value="Отправить"
           onClick={this.handleSignIn}
-        />{' '}
-        {this.renderError()}{' '}
+        />
+        {this.renderError()}
       </div>
     );
   }
@@ -108,8 +97,4 @@ export default connect(
   state => ({
     loginData: state.loginReducer,
   }),
-  // dispatch => ({
-  //   onChangeRowInReducer: bindActionCreators(tableActions.changeRow, dispatch),
-  //   onSignIn: bindActionCreators(loginActions.loginUser, dispatch),
-  // }),
 )(Registration);
