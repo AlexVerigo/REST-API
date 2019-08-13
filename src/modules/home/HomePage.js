@@ -45,15 +45,15 @@ class HomePage extends React.Component {
     });
   };
 
-  onSeacrhdata = event => {
-    const searchString = event.target.value;
-    console.log(this.props);
-    this.saveNotes(searchString);
-  };
-
   saveNotes = debounce(personalNotes => {
     this.props.onSearch(personalNotes);
   }, 700);
+
+  onSeacrhdata = event => {
+    const searchString = event.target.value;
+    console.log(this.props)
+    this.saveNotes(searchString)
+  };
 
   renderButtons = id => {
     return (
@@ -69,6 +69,7 @@ class HomePage extends React.Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     this.props.getData();
   }
 
@@ -94,7 +95,6 @@ class HomePage extends React.Component {
           onClick={this.props.onToggleAll.bind(this, true)}
         />
         <input
-          type="text"
           onChange={e => this.onSeacrhdata(e)}
         />
 

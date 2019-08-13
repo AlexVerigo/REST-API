@@ -14,6 +14,18 @@ const handleChangeRow = (rows, payload) => {
   return updatedRows;
 };
 
+const handleToggleRow = (rows, payload) => {
+  const toggleRows = rows.map(row => {
+    if (row.id === payload.id) {
+      return { ...row, isDisabled: payload.isDisabled };
+    }
+
+    return row;
+  });
+
+  return toggleRows;
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'GET_ROWS_SUCCESS':
@@ -51,6 +63,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         rows: handleChangeRow(state.rows, action.payload),
+      };
+    case 'GET_ROWS_SEARCH':
+      return {
+        ...state,
+        rows: action.payload,
       };
     default:
       return state;
